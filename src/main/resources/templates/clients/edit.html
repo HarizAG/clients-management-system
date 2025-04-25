@@ -11,8 +11,10 @@
     <div class="container my-3">
         <div class="col-md-8 mx-auto rounded border p-4">
             <h2 class="text-center mb-5">Edit Client</h2>
-            <!-- Add action to submit the form to the correct endpoint -->
             <form method="post" th:object="${clientDto}" th:action="@{/clients/update}">
+                <!-- Hidden input for client ID -->
+                <input type="hidden" th:name="id" th:value="${clientId}" />
+
                 <div class="row mb-3">
                     <label>First Name</label>
                     <div>

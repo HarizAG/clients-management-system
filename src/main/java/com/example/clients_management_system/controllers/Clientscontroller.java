@@ -72,22 +72,51 @@ public class Clientscontroller {
     }
 
     @GetMapping("/edit")
-public String editClient(Model model, @RequestParam int id) { // Change Long to Integer
-    Clients client = clientRepository.findById(id).orElse(null);
-    if (client == null) {
-        return "redirect:/clients";
+    public String editClient(Model model, @RequestParam int id) {
+        Clients client = clientRepository.findById(id).orElse(null);
+        if (client == null) {
+            return "redirect:/clients";
+        }
+
+        ClientsDto clientDto = new ClientsDto();
+        clientDto.setFirstname(client.getFirstname());
+        clientDto.setLastname(client.getLastname());
+        clientDto.setEmail(client.getEmail());
+        clientDto.setPhone(client.getPhone());
+        clientDto.setAddress(client.getAddress());
+        clientDto.setStatus(client.getStatus());
+
+        model.addAttribute("clientDto", clientDto);
+        model.addAttribute("clientId", id); // Pass the client ID to the view
+
+        return "clients/edit";
     }
 
-    ClientsDto clientDto = new ClientsDto();
-    clientDto.setFirstname(client.getFirstname());
-    clientDto.setLastname(client.getLastname());
-    clientDto.setEmail(client.getEmail());
-    clientDto.setPhone(client.getPhone());
-    clientDto.setAddress(client.getAddress());
-    clientDto.setStatus(client.getStatus());
+    @PostMapping("/update")
+    public String updateClient(
+        @RequestParam Integer id, // Get the client ID from the hidden input
+        @Valid @ModelAttribute ClientsDto clientDto,
+        BindingResult result
+    ) {
+        Clients client = clientRepository.findById(id).orElse(null);
+        if (client == null) {
+            return "redirect:/clients";
+        }
 
-    model.addAttribute("clientDto", clientDto);
+        if (result.hasErrors()) {
+            return "clients/edit";
+        }
 
-    return "clients/edit";
-}
+        // Update the client details
+        client.setFirstname(clientDto.getFirstname());
+        client.setLastname(clientDto.getLastname());
+        client.setEmail(clientDto.getEmail());
+        client.setPhone(clientDto.getPhone());
+        client.setAddress(clientDto.getAddress());
+        client.setStatus(clientDto.getStatus());
+
+        clientRepository.save(client);
+
+        return "redirect:/clients";
+    }
 }
