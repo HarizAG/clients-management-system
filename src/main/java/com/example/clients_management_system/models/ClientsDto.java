@@ -1,38 +1,22 @@
 package com.example.clients_management_system.models;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity; // <-- Make sure this is imported
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
 
-
-@Entity
-@Table(name = "clients")
-public class Clients {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-
+public class ClientsDto {
+    @NotEmpty(message = "First name is required")
     private String firstname;
+
+    @NotEmpty(message = "Last name is required")
     private String lastname;
 
-    @Column(unique = true, nullable = false)
+    @NotEmpty(message = "Email should be valid")
+    @Email
     private String email;
 
     private String phone;
     private String address;
+
+    @NotEmpty(message = "Status is required")
     private String status;
-    private String createdAt;
-
-    // Getters and Setters
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getFirstname() {
         return firstname;
@@ -82,11 +66,4 @@ public class Clients {
         this.status = status;
     }
 
-    public String getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(String createdAt) {
-        this.createdAt = createdAt;
-    }
 }

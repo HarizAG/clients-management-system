@@ -1,0 +1,72 @@
+package com.example.clients_management_system.controllers;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.example.clients_management_system.models.Clients;
+import com.example.clients_management_system.models.ClientsDto;
+import com.example.clients_management_system.repositories.ClientRepository;
+
+import jakarta.validation.Valid;
+
+@Controller
+@RequestMapping("/clients")
+public class Clientscontroller {
+
+    @Autowired
+    private ClientRepository clientRepository;
+
+    @GetMapping({"", "/"})
+    public String getClients(Model model) {
+        var clients = clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        model.addAttribute("clients", clients);
+        return "clients/index";
+    }
+
+    @GetMapping("/create")
+    public String createClient(Model model) {
+        ClientsDto clientDto = new ClientsDto();
+        model.addAttribute("clientDto", clientDto);
+        return "clients/create";
+    }
+
+    @PostMapping("/create")
+    public String createClient(
+        @Valid @ModelAttribute ClientsDto clientDto,
+        BindingResult result
+    ) {
+        if (clientRepository.findByEmail(clientDto.getEmail()) != null) {
+            result.addError(
+                new FieldError("clientDto", "email", clientDto.getEmail(),
+                               false, null, null, "Email address is already used")
+            );
+        }
+
+        if (result.hasErrors()) {
+            return "clients/create";
+        }
+
+        Clients client = new Clients();
+        client.setFirstname(clientDto.getFirstname()); 
+        client.setLastname(clientDto.getLastname());   
+        client.setEmail(clientDto.getEmail());
+        client.setPhone(clientDto.getPhone());
+        client.setAddress(clientDto.getAddress());
+        client.setStatus(clientDto.getStatus());
+        client.setCreatedAt(new Date().toString());
+
+        clientRepository.save(client);
+
+        return "redirect:/clients";
+    }
+}
