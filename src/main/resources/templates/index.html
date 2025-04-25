@@ -3,15 +3,232 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clients Manager</title>
+    <title>Clients Manager | Dashboard</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+      .hero-section {
+        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+        color: white;
+        border-radius: 10px;
+        padding: 3rem 2rem;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+      }
+      .feature-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border: none;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      }
+      .btn-primary {
+        background-color: #2575fc;
+        border-color: #2575fc;
+      }
+      .btn-primary:hover {
+        background-color: #1a68e0;
+        border-color: #1a68e0;
+      }
+      .nav-pills .nav-link.active {
+        background-color: #2575fc;
+      }
+    </style>
   </head>
   <body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <i class="bi bi-people-fill me-2"></i>Clients Manager
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+              <a class="nav-link active" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/clients">Clients</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
-    <div class="container my-3">
-        <h1 class="text-center mb-3">Welcome to our website agagaga</h1>
-        <a class="btn btn-primary" href="/clients">Clients</a>
+    <div class="container my-5">
+      <!-- Hero Section -->
+      <div class="hero-section text-center">
+        <h1 class="display-4 fw-bold mb-4">Manage Your Clients Efficiently</h1>
+        <p class="lead mb-4">Streamline your client management process with our powerful yet simple solution</p>
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+          <a class="btn btn-light btn-lg px-4 gap-3" href="/clients">
+            <i class="bi bi-people-fill me-2"></i>View Clients
+          </a>
+          <a class="btn btn-outline-light btn-lg px-4" href="#features">
+            <i class="bi bi-info-circle me-2"></i>Learn More
+          </a>
+        </div>
+      </div>
+
+      <!-- Quick Stats -->
+      <div class="row mb-5">
+        <div class="col-md-4 mb-3">
+          <div class="card feature-card h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
+              <h5 class="card-title mt-3">Total Clients</h5>
+              <p class="card-text display-6">${clientCount}</p>
+              <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card feature-card h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
+              <h5 class="card-title mt-3">Active</h5>
+              <p class="card-text display-6">${activeCount}</p>
+              <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 mb-3">
+          <div class="card feature-card h-100">
+            <div class="card-body text-center">
+              <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
+              <h5 class="card-title mt-3">Inactive</h5>
+              <p class="card-text display-6">${inactiveCount}</p>
+              <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <div id="features" class="mb-5">
+        <h2 class="text-center mb-4">Key Features</h2>
+        <div class="row g-4">
+          <div class="col-md-6">
+            <div class="card feature-card h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
+                    <i class="bi bi-search text-primary" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h5 class="card-title mb-0">Advanced Search</h5>
+                </div>
+                <p class="card-text">Quickly find any client with our powerful search functionality that filters across all fields in real-time.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card feature-card h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-success bg-opacity-10 p-3 rounded me-3">
+                    <i class="bi bi-graph-up text-success" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h5 class="card-title mb-0">Client Analytics</h5>
+                </div>
+                <p class="card-text">Visualize your client data with interactive charts and graphs to gain valuable business insights.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card feature-card h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-info bg-opacity-10 p-3 rounded me-3">
+                    <i class="bi bi-file-earmark-text text-info" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h5 class="card-title mb-0">Detailed Reports</h5>
+                </div>
+                <p class="card-text">Generate comprehensive reports on client activity, status, and history with just a few clicks.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card feature-card h-100">
+              <div class="card-body">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-warning bg-opacity-10 p-3 rounded me-3">
+                    <i class="bi bi-shield-lock text-warning" style="font-size: 1.5rem;"></i>
+                  </div>
+                  <h5 class="card-title mb-0">Secure Data</h5>
+                </div>
+                <p class="card-text">Your client data is protected with enterprise-grade security and regular automated backups.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quick Actions -->
+      <div class="card mb-5">
+        <div class="card-header bg-primary text-white">
+          <h5 class="mb-0">Quick Actions</h5>
+        </div>
+        <div class="card-body">
+          <div class="row g-3">
+            <div class="col-md-4">
+              <a href="/clients/new" class="btn btn-outline-primary w-100 py-3">
+                <i class="bi bi-plus-circle me-2"></i>Add New Client
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="/clients/import" class="btn btn-outline-secondary w-100 py-3">
+                <i class="bi bi-upload me-2"></i>Import Clients
+              </a>
+            </div>
+            <div class="col-md-4">
+              <a href="/reports" class="btn btn-outline-success w-100 py-3">
+                <i class="bi bi-file-earmark-bar-graph me-2"></i>Generate Report
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h5><i class="bi bi-people-fill me-2"></i>Clients Manager</h5>
+            <p class="text-muted">A simple yet powerful solution for managing your client relationships.</p>
+          </div>
+          <div class="col-md-3">
+            <h5>Links</h5>
+            <ul class="list-unstyled">
+              <li><a href="/" class="text-decoration-none text-white-50">Home</a></li>
+              <li><a href="/clients" class="text-decoration-none text-white-50">Clients</a></li>
+              <li><a href="#" class="text-decoration-none text-white-50">Documentation</a></li>
+            </ul>
+          </div>
+          <div class="col-md-3">
+            <h5>Contact</h5>
+            <ul class="list-unstyled">
+              <li><i class="bi bi-envelope me-2"></i> support@clientsmanager.com</li>
+              <li><i class="bi bi-telephone me-2"></i> (123) 456-7890</li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4 bg-secondary">
+        <div class="text-center text-muted">
+          <small>© 2023 Clients Manager. All rights reserved.</small>
+        </div>
+      </div>
+    </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
   </body>
