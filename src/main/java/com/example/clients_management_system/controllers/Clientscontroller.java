@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.clients_management_system.models.Clients;
 import com.example.clients_management_system.models.ClientsDto;
@@ -69,4 +70,24 @@ public class Clientscontroller {
 
         return "redirect:/clients";
     }
+
+    @GetMapping("/edit")
+public String editClient(Model model, @RequestParam int id) { // Change Long to Integer
+    Clients client = clientRepository.findById(id).orElse(null);
+    if (client == null) {
+        return "redirect:/clients";
+    }
+
+    ClientsDto clientDto = new ClientsDto();
+    clientDto.setFirstname(client.getFirstname());
+    clientDto.setLastname(client.getLastname());
+    clientDto.setEmail(client.getEmail());
+    clientDto.setPhone(client.getPhone());
+    clientDto.setAddress(client.getAddress());
+    clientDto.setStatus(client.getStatus());
+
+    model.addAttribute("clientDto", clientDto);
+
+    return "clients/edit";
+}
 }
