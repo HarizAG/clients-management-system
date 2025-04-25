@@ -119,4 +119,13 @@ public class Clientscontroller {
 
         return "redirect:/clients";
     }
+
+    @PostMapping("/delete")
+public String deleteClient(@RequestParam Integer id) {
+    Clients client = clientRepository.findById(id).orElse(null);
+    if (client != null) {
+        clientRepository.delete(client);
+    }
+    return "redirect:/clients";
+}
 }
