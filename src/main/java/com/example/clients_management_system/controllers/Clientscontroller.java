@@ -28,9 +28,16 @@ public class Clientscontroller {
     private ClientRepository clientRepository;
 
     @GetMapping({"", "/"})
-    public String getClients(Model model) {
-        var clients = clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+    public String getClients(
+        Model model,
+        @RequestParam(required = false) String status
+    ) {
+        var clients = status != null && !status.isEmpty()
+            ? clientRepository.findByStatus(status, Sort.by(Sort.Direction.DESC, "id"))
+            : clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        
         model.addAttribute("clients", clients);
+        model.addAttribute("currentStatus", status);
         return "clients/index";
     }
 
