@@ -36,8 +36,16 @@ public class Clientscontroller {
             ? clientRepository.findByStatus(status, Sort.by(Sort.Direction.DESC, "id"))
             : clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
         
+        // Calculate counts
+        long totalCount = clientRepository.count();
+        long activeCount = clientRepository.findByStatus("active", Sort.by(Sort.Direction.DESC, "id")).size();
+        long inactiveCount = clientRepository.findByStatus("inactive", Sort.by(Sort.Direction.DESC, "id")).size();
+        
         model.addAttribute("clients", clients);
         model.addAttribute("currentStatus", status);
+        model.addAttribute("clientCount", totalCount);
+        model.addAttribute("activeCount", activeCount);
+        model.addAttribute("inactiveCount", inactiveCount);
         return "clients/index";
     }
 
@@ -128,11 +136,11 @@ public class Clientscontroller {
     }
 
     @PostMapping("/delete")
-public String deleteClient(@RequestParam Integer id) {
-    Clients client = clientRepository.findById(id).orElse(null);
-    if (client != null) {
-        clientRepository.delete(client);
+    public String deleteClient(@RequestParam Integer id) {
+        Clients client = clientRepository.findById(id).orElse(null);
+        if (client != null) {
+            clientRepository.delete(client);
+        }
+        return "redirect:/clients";
     }
-    return "redirect:/clients";
-}
 }

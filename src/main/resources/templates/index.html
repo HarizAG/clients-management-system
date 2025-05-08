@@ -86,7 +86,7 @@
             <div class="card-body text-center">
               <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
               <h5 class="card-title mt-3">Total Clients</h5>
-              <p class="card-text display-6">${clientCount}</p>
+              <p class="card-text display-6" th:text="${clientCount}">0</p>
               <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
             </div>
           </div>
@@ -96,7 +96,7 @@
             <div class="card-body text-center">
               <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
               <h5 class="card-title mt-3">Active</h5>
-              <p class="card-text display-6">${activeCount}</p>
+              <p class="card-text display-6" th:text="${activeCount}">0</p>
               <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
             </div>
           </div>
@@ -106,7 +106,7 @@
             <div class="card-body text-center">
               <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
               <h5 class="card-title mt-3">Inactive</h5>
-              <p class="card-text display-6">${inactiveCount}</p>
+              <p class="card-text display-6" th:text="${inactiveCount}">0</p>
               <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
             </div>
           </div>
