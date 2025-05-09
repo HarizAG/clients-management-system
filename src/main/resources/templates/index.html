@@ -1,181 +1,181 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Clients Manager | Dashboard</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
-    <style>
-      .hero-section {
-        background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
-        color: white;
-        border-radius: 10px;
-        padding: 3rem 2rem;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
-      }
-      .feature-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border: none;
-        border-radius: 10px;
-        overflow: hidden;
-      }
-      .feature-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
-      }
-      .btn-primary {
-        background-color: #2575fc;
-        border-color: #2575fc;
-      }
-      .btn-primary:hover {
-        background-color: #1a68e0;
-        border-color: #1a68e0;
-      }
-      .nav-pills .nav-link.active {
-        background-color: #2575fc;
-      }
-    </style>
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div class="container">
-        <a class="navbar-brand" href="/">
-          <i class="bi bi-people-fill me-2"></i>Clients Manager
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" href="/">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/clients">Clients</a>
-            </li>
-            
-            <li class="nav-item">
-              <form th:action="@{/logout}" method="post">
-                <button type="submit" class="btn btn-outline-light ms-2">
-                  <i class="bi bi-box-arrow-right"></i> Logout
-                </button>
-              </form>
-            </li>
-          </ul>
-        </div>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Clients Manager | Dashboard</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+    .hero {
+      background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+      color: white;
+      padding: 4rem 2rem;
+      border-radius: 15px;
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    .hero .btn {
+      margin: 0.5rem;
+    }
+    .feature-card {
+      border-radius: 15px;
+      transition: all 0.3s ease;
+      text-align: center;
+      padding: 2rem 1rem;
+      background: white;
+      box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
+    }
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      font-weight: bold;
+    }
+    .chart-container {
+      width: 100%;
+      height: 300px;
+    }
+    .footer-link a:hover {
+      color: #fff !important;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/"><i class="bi bi-people-fill me-2"></i>Clients Manager</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/clients">Clients</a></li>
+          <li class="nav-item">
+            <form th:action="@{/logout}" method="post" class="d-inline">
+              <button type="submit" class="btn btn-outline-light ms-2"><i class="bi bi-box-arrow-right"></i> Logout</button>
+            </form>
+          </li>
+        </ul>
       </div>
-    </nav>
+    </div>
+  </nav>
 
-    <div class="container my-5">
-      <!-- Hero Section -->
-      <div class="hero-section text-center">
-        <h1 class="display-4 fw-bold mb-4">Manage Your Clients Efficiently</h1>
-        <p class="lead mb-4">Streamline your client management process with our powerful yet simple solution</p>
-        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
-          <a class="btn btn-light btn-lg px-4 gap-3" href="/clients">
-            <i class="bi bi-people-fill me-2"></i>View Clients
-          </a>
-          
-        </div>
-      </div>
+  <!-- Hero Section -->
+  <section class="hero">
+    <h1 class="display-5 fw-bold">Welcome to Clients Manager</h1>
+    <p class="lead">Simplify how you manage, analyze, and grow your client base.</p>
+    <div>
+      <a class="btn btn-light btn-lg" href="/clients"><i class="bi bi-people-fill me-2"></i>View Clients</a>
+      <a class="btn btn-outline-light btn-lg" href="/clients/create"><i class="bi bi-plus-circle me-2"></i>Add Client</a>
+    </div>
+  </section>
 
-      <!-- Quick Stats -->
-      <div class="row mb-5">
-        <div class="col-md-4 mb-3">
-          <div class="card feature-card h-100">
-            <div class="card-body text-center">
-              <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
-              <h5 class="card-title mt-3">Total Clients</h5>
-              <p class="card-text display-6" th:text="${clientCount}">0</p>
-              <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="card feature-card h-100">
-            <div class="card-body text-center">
-              <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
-              <h5 class="card-title mt-3">Active</h5>
-              <p class="card-text display-6" th:text="${activeCount}">0</p>
-              <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 mb-3">
-          <div class="card feature-card h-100">
-            <div class="card-body text-center">
-              <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
-              <h5 class="card-title mt-3">Inactive</h5>
-              <p class="card-text display-6" th:text="${inactiveCount}">0</p>
-              <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      
-
-      <!-- Quick Actions -->
-      <div class="card mb-5">
-        <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Quick Actions</h5>
-        </div>
-        <div class="card-body">
-          <div class="row g-3">
-            <div class="col-md-4">
-              <a href="/clients/create" class="btn btn-outline-primary w-100 py-3">
-                <i class="bi bi-plus-circle me-2"></i>Add New Client
-              </a>
-            </div>
-            <div class="col-md-4">
-              <a href="/clients/import" class="btn btn-outline-secondary w-100 py-3">
-                <i class="bi bi-upload me-2"></i>Import Clients
-              </a>
-            </div>
-            <div class="col-md-4">
-              <a href="/reports" class="btn btn-outline-success w-100 py-3">
-                <i class="bi bi-file-earmark-bar-graph me-2"></i>Generate Report
-              </a>
-            </div>
-          </div>
+  <div class="container mb-5">
+    <!-- Analytics Section -->
+    <div class="card mb-4">
+      <div class="card-header bg-success text-white">Client Analytics</div>
+      <div class="card-body">
+        <div class="chart-container">
+          <canvas id="statusPieChart"></canvas>
         </div>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="bg-dark text-white py-4">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <h5><i class="bi bi-people-fill me-2"></i>Clients Manager</h5>
-            <p class="text-muted">A simple yet powerful solution for managing your client relationships.</p>
-          </div>
-          <div class="col-md-3">
-            <h5>Links</h5>
-            <ul class="list-unstyled">
-              <li><a href="/" class="text-decoration-none text-white-50">Home</a></li>
-              <li><a href="/clients" class="text-decoration-none text-white-50">Clients</a></li>
-              <li><a href="#" class="text-decoration-none text-white-50">Documentation</a></li>
-            </ul>
-          </div>
-          <div class="col-md-3">
-            <h5>Contact</h5>
-            <ul class="list-unstyled">
-              <li><i class="bi bi-envelope me-2"></i> hazeemhariz@clientsmanager.com</li>
-              <li><i class="bi bi-telephone me-2"></i>0123456789</li>
-            </ul>
-          </div>
-        </div>
-        <hr class="my-4 bg-secondary">
-        <div class="text-center text-muted">
-          <small>© 2023 Clients Manager. All rights reserved.</small>
+    <!-- Feature Stats -->
+    <div class="row mb-4 g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
+          <h5 class="mt-3">Total Clients</h5>
+          <p class="display-6" th:text="${clientCount}">0</p>
+          <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
         </div>
       </div>
-    </footer>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
+          <h5 class="mt-3">Active Clients</h5>
+          <p class="display-6" th:text="${activeCount}">0</p>
+          <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="feature-card">
+          <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
+          <h5 class="mt-3">Inactive Clients</h5>
+          <p class="display-6" th:text="${inactiveCount}">0</p>
+          <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
+        </div>
+      </div>
+    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js" integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq" crossorigin="anonymous"></script>
-  </body>
+    <!-- Quick Actions -->
+    <div class="card">
+      <div class="card-header bg-primary text-white">Quick Actions</div>
+      <div class="card-body">
+        <div class="row g-3">
+          <div class="col-md-4">
+            <a href="/clients/create" class="btn btn-outline-primary w-100 py-3">
+              <i class="bi bi-plus-circle me-2"></i>Add New Client
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/clients/import" class="btn btn-outline-secondary w-100 py-3">
+              <i class="bi bi-upload me-2"></i>Import Clients
+            </a>
+          </div>
+          <div class="col-md-4">
+            <a href="/reports" class="btn btn-outline-success w-100 py-3">
+              <i class="bi bi-file-earmark-bar-graph me-2"></i>Generate Report
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-dark text-white text-center py-4 mt-auto">
+    <div class="container">
+      <h5><i class="bi bi-people-fill me-2"></i>Clients Manager</h5>
+      <p class="text-muted mb-1">Powerful yet simple client management tool.</p>
+      <p class="text-muted small mb-1">Contact: hazeemhariz@clientsmanager.com | 0123456789</p>
+      <p class="text-muted small">© 2023 Clients Manager. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script th:inline="javascript">
+    const activeCount = /*[[${activeCount}]]*/ 0;
+    const inactiveCount = /*[[${inactiveCount}]]*/ 0;
+
+    new Chart(document.getElementById("statusPieChart"), {
+      type: 'pie',
+      data: {
+        labels: ['Active', 'Inactive'],
+        datasets: [{
+          data: [activeCount, inactiveCount],
+          backgroundColor: ['#198754', '#ffc107']
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+  </script>
+</body>
 </html>

@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.example.clients_management_system.models.Clients;
 import com.example.clients_management_system.models.Note;
@@ -38,7 +39,7 @@ public class NoteController {
         note.setContent(content);
         note.setClient(client);
         noteRepository.save(note);
-        return "redirect:/clients";
+        return "redirect:/notes/client/" + clientId;
     }
 
     // For AJAX/JSON requests
@@ -72,5 +73,18 @@ public class NoteController {
         model.addAttribute("client", client);
         model.addAttribute("notes", notes);
         return "notes/view";
+    }
+
+    // Delete a note
+    @PostMapping("/{noteId}/delete")
+    public String deleteNote(@PathVariable Long noteId, RedirectAttributes redirectAttributes) {
+        Note note = noteRepository.findById(noteId).orElse(null);
+        if (note != null) {
+            int clientId = note.getClient().getId();
+            noteRepository.deleteById(noteId);
+            redirectAttributes.addFlashAttribute("message", "Note deleted successfully.");
+            return "redirect:/notes/client/" + clientId;
+        }
+        return "redirect:/clients";
     }
 }
