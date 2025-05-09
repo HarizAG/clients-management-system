@@ -70,12 +70,12 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero">
-    <h1 class="display-5 fw-bold">Welcome to Clients Manager</h1>
-    <p class="lead">Simplify how you manage, analyze, and grow your client base.</p>
+  <section class="hero py-3" style="padding: 2rem 1rem; border-radius: 0;">
+    <h2 class="fw-bold mb-2" style="font-size:2rem;">Welcome to Clients Manager</h2>
+    <p class="mb-3" style="font-size:1rem;">Manage and analyze your clients easily.</p>
     <div>
-      <a class="btn btn-light btn-lg" href="/clients"><i class="bi bi-people-fill me-2"></i>View Clients</a>
-      <a class="btn btn-outline-light btn-lg" href="/clients/create"><i class="bi bi-plus-circle me-2"></i>Add Client</a>
+      <a class="btn btn-light btn-sm me-2" href="/clients"><i class="bi bi-people-fill"></i> Clients</a>
+      <a class="btn btn-outline-light btn-sm" href="/clients/create"><i class="bi bi-plus-circle"></i> Add</a>
     </div>
   </section>
 
@@ -84,36 +84,42 @@
     <div class="card mb-4">
       <div class="card-header bg-success text-white">Client Analytics</div>
       <div class="card-body">
-        <div class="chart-container">
-          <canvas id="statusPieChart"></canvas>
-        </div>
-      </div>
-    </div>
-
-    <!-- Feature Stats -->
-    <div class="row mb-4 g-4">
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
-          <h5 class="mt-3">Total Clients</h5>
-          <p class="display-6" th:text="${clientCount}">0</p>
-          <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
-          <h5 class="mt-3">Active Clients</h5>
-          <p class="display-6" th:text="${activeCount}">0</p>
-          <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
-        </div>
-      </div>
-      <div class="col-md-4">
-        <div class="feature-card">
-          <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
-          <h5 class="mt-3">Inactive Clients</h5>
-          <p class="display-6" th:text="${inactiveCount}">0</p>
-          <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
+        <div class="row align-items-center">
+          <!-- Feature Stats -->
+          <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="row g-4">
+              <div class="col-md-4">
+                <div class="feature-card">
+                  <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
+                  <h5 class="mt-3">Total Clients</h5>
+                  <p class="display-6" th:text="${clientCount}">0</p>
+                  <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card">
+                  <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
+                  <h5 class="mt-3">Active Clients</h5>
+                  <p class="display-6" th:text="${activeCount}">0</p>
+                  <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="feature-card">
+                  <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
+                  <h5 class="mt-3">Inactive Clients</h5>
+                  <p class="display-6" th:text="${inactiveCount}">0</p>
+                  <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Pie Chart -->
+          <div class="col-lg-4">
+            <div class="chart-container">
+              <canvas id="statusPieChart"></canvas>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -122,15 +128,10 @@
     <div class="card">
       <div class="card-header bg-primary text-white">Quick Actions</div>
       <div class="card-body">
-        <div class="row g-3">
+        <div class="row g-3 justify-content-center">
           <div class="col-md-4">
             <a href="/clients/create" class="btn btn-outline-primary w-100 py-3">
               <i class="bi bi-plus-circle me-2"></i>Add New Client
-            </a>
-          </div>
-          <div class="col-md-4">
-            <a href="/clients/import" class="btn btn-outline-secondary w-100 py-3">
-              <i class="bi bi-upload me-2"></i>Import Clients
             </a>
           </div>
           <div class="col-md-4">
