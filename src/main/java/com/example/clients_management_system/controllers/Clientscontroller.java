@@ -33,13 +33,13 @@ public class Clientscontroller {
         @RequestParam(required = false) String status
     ) {
         var clients = status != null && !status.isEmpty()
-            ? clientRepository.findByStatus(status, Sort.by(Sort.Direction.DESC, "id"))
-            : clientRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+            ? clientRepository.findByStatus(status, Sort.by(Sort.Direction.ASC, "id"))
+            : clientRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         
         // Calculate counts
         long totalCount = clientRepository.count();
-        long activeCount = clientRepository.findByStatus("active", Sort.by(Sort.Direction.DESC, "id")).size();
-        long inactiveCount = clientRepository.findByStatus("inactive", Sort.by(Sort.Direction.DESC, "id")).size();
+        long activeCount = clientRepository.findByStatus("active", Sort.by(Sort.Direction.ASC, "id")).size();
+        long inactiveCount = clientRepository.findByStatus("inactive", Sort.by(Sort.Direction.ASC, "id")).size();
         
         model.addAttribute("clients", clients);
         model.addAttribute("currentStatus", status);

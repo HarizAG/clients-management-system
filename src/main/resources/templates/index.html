@@ -56,9 +56,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/clients">Clients</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#"><i class="bi bi-gear"></i> Settings</a>
-            </li>
+            
             <li class="nav-item">
               <form th:action="@{/logout}" method="post">
                 <button type="submit" class="btn btn-outline-light ms-2">
@@ -80,9 +78,7 @@
           <a class="btn btn-light btn-lg px-4 gap-3" href="/clients">
             <i class="bi bi-people-fill me-2"></i>View Clients
           </a>
-          <a class="btn btn-outline-light btn-lg px-4" href="#features">
-            <i class="bi bi-info-circle me-2"></i>Learn More
-          </a>
+          
         </div>
       </div>
 
@@ -120,64 +116,7 @@
         </div>
       </div>
 
-      <!-- Features Section -->
-      <div id="features" class="mb-5">
-        <h2 class="text-center mb-4">Key Features</h2>
-        <div class="row g-4">
-          <div class="col-md-6">
-            <div class="card feature-card h-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="bg-primary bg-opacity-10 p-3 rounded me-3">
-                    <i class="bi bi-search text-primary" style="font-size: 1.5rem;"></i>
-                  </div>
-                  <h5 class="card-title mb-0">Advanced Search</h5>
-                </div>
-                <p class="card-text">Quickly find any client with our powerful search functionality that filters across all fields in real-time.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card feature-card h-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="bg-success bg-opacity-10 p-3 rounded me-3">
-                    <i class="bi bi-graph-up text-success" style="font-size: 1.5rem;"></i>
-                  </div>
-                  <h5 class="card-title mb-0">Client Analytics</h5>
-                </div>
-                <p class="card-text">Visualize your client data with interactive charts and graphs to gain valuable business insights.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card feature-card h-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="bg-info bg-opacity-10 p-3 rounded me-3">
-                    <i class="bi bi-file-earmark-text text-info" style="font-size: 1.5rem;"></i>
-                  </div>
-                  <h5 class="card-title mb-0">Detailed Reports</h5>
-                </div>
-                <p class="card-text">Generate comprehensive reports on client activity, status, and history with just a few clicks.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <div class="card feature-card h-100">
-              <div class="card-body">
-                <div class="d-flex align-items-center mb-3">
-                  <div class="bg-warning bg-opacity-10 p-3 rounded me-3">
-                    <i class="bi bi-shield-lock text-warning" style="font-size: 1.5rem;"></i>
-                  </div>
-                  <h5 class="card-title mb-0">Secure Data</h5>
-                </div>
-                <p class="card-text">Your client data is protected with enterprise-grade security and regular automated backups.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      
 
       <!-- Quick Actions -->
       <div class="card mb-5">
@@ -187,7 +126,7 @@
         <div class="card-body">
           <div class="row g-3">
             <div class="col-md-4">
-              <a href="/clients/new" class="btn btn-outline-primary w-100 py-3">
+              <a href="/clients/create" class="btn btn-outline-primary w-100 py-3">
                 <i class="bi bi-plus-circle me-2"></i>Add New Client
               </a>
             </div>
@@ -225,8 +164,8 @@
           <div class="col-md-3">
             <h5>Contact</h5>
             <ul class="list-unstyled">
-              <li><i class="bi bi-envelope me-2"></i> support@clientsmanager.com</li>
-              <li><i class="bi bi-telephone me-2"></i> (123) 456-7890</li>
+              <li><i class="bi bi-envelope me-2"></i> hazeemhariz@clientsmanager.com</li>
+              <li><i class="bi bi-telephone me-2"></i>0123456789</li>
             </ul>
           </div>
         </div>
