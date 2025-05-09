@@ -44,6 +44,11 @@
       color: #fff !important;
       text-decoration: underline;
     }
+    .fixed-btn {
+      width: 100%; /* Makes the button take up full width within its container */
+      text-align: center; /* Centers the text inside the button */
+    }
+
   </style>
 </head>
 <body>
@@ -70,14 +75,15 @@
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero py-3" style="padding: 2rem 1rem; border-radius: 0;">
+  <section class="hero py-3" style="border-radius: 0;">
     <h2 class="fw-bold mb-2" style="font-size:2rem;">Welcome to Clients Manager</h2>
     <p class="mb-3" style="font-size:1rem;">Manage and analyze your clients easily.</p>
     <div>
       <a class="btn btn-light btn-sm me-2" href="/clients"><i class="bi bi-people-fill"></i> Clients</a>
       <a class="btn btn-outline-light btn-sm" href="/clients/create"><i class="bi bi-plus-circle"></i> Add</a>
     </div>
-  </section>
+</section>
+
 
   <div class="container mb-5">
     <!-- Analytics Section -->
@@ -88,31 +94,51 @@
           <!-- Feature Stats -->
           <div class="col-lg-8 mb-4 mb-lg-0">
             <div class="row g-4">
-              <div class="col-md-4">
-                <div class="feature-card">
-                  <i class="bi bi-people text-primary" style="font-size: 2.5rem;"></i>
-                  <h5 class="mt-3">Total Clients</h5>
-                  <p class="display-6" th:text="${clientCount}">0</p>
-                  <a href="/clients" class="btn btn-sm btn-outline-primary">View All</a>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="feature-card">
-                  <i class="bi bi-calendar-check text-success" style="font-size: 2.5rem;"></i>
-                  <h5 class="mt-3">Active Clients</h5>
-                  <p class="display-6" th:text="${activeCount}">0</p>
-                  <a href="/clients?status=active" class="btn btn-sm btn-outline-success">View Active</a>
-                </div>
-              </div>
-              <div class="col-md-4">
-                <div class="feature-card">
-                  <i class="bi bi-exclamation-triangle text-warning" style="font-size: 2.5rem;"></i>
-                  <h5 class="mt-3">Inactive Clients</h5>
-                  <p class="display-6" th:text="${inactiveCount}">0</p>
-                  <a href="/clients?status=inactive" class="btn btn-sm btn-outline-warning">View Inactive</a>
-                </div>
-              </div>
-            </div>
+  <div class="col-md-2">
+    <div class="feature-card">
+      <i class="bi bi-people display-5 mb-2"></i>
+      <h5 class="mt-3">Total Clients</h5>
+      <p class="display-6" th:text="${clientCount}">0</p>
+      <a href="/clients" class="btn btn-sm btn-outline-primary fixed-btn">View All</a>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="feature-card">
+      <h5 class="mt-3">Active</h5>
+      <p class="display-6" th:text="${activeCount}">0</p>
+      <a href="/clients?status=active" class="btn btn-sm btn-outline-primary fixed-btn">View Active</a>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="feature-card">
+      <h5 class="mt-3">Inactive</h5>
+      <p class="display-6" th:text="${inactiveCount}">0</p>
+      <a href="/clients?status=inactive" class="btn btn-sm btn-outline-primary fixed-btn">View Inactive</a>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="feature-card">
+      <h5 class="mt-3">Lead</h5>
+      <p class="display-6" th:text="${leadCount}">0</p>
+      <a href="/clients?status=lead" class="btn btn-sm btn-outline-primary fixed-btn">View Lead</a>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="feature-card">
+      <h5 class="mt-3">Occasional</h5>
+      <p class="display-6" th:text="${occasionalCount}">0</p>
+      <a href="/clients?status=occasional" class="btn btn-sm btn-outline-primary fixed-btn">View Occasional</a>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="feature-card">
+      <h5 class="mt-3">Permanent</h5>
+      <p class="display-6" th:text="${permanentCount}">0</p>
+      <a href="/clients?status=permanent" class="btn btn-sm btn-outline-primary fixed-btn">View Permanent</a>
+    </div>
+  </div>
+</div>
+
           </div>
           <!-- Pie Chart -->
           <div class="col-lg-4">
@@ -147,10 +173,10 @@
   <!-- Footer -->
   <footer class="bg-dark text-white text-center py-4 mt-auto">
     <div class="container">
-      <h5><i class="bi bi-people-fill me-2"></i>Clients Manager</h5>
-      <p class="text-muted mb-1">Powerful yet simple client management tool.</p>
-      <p class="text-muted small mb-1">Contact: hazeemhariz@clientsmanager.com | 0123456789</p>
-      <p class="text-muted small">© 2023 Clients Manager. All rights reserved.</p>
+      <h5 class="text-white"><i class="bi bi-people-fill me-2"></i>Clients Manager</h5>
+      <p class="text-white mb-1">Powerful yet simple client management tool.</p>
+      <p class="text-white small mb-1">Email: hazeemhariz@clientsmanager.com | 0123456789</p>
+      <p class="text-white small">© 2025 Clients Manager. All rights reserved.</p>
     </div>
   </footer>
 
@@ -160,14 +186,17 @@
   <script th:inline="javascript">
     const activeCount = /*[[${activeCount}]]*/ 0;
     const inactiveCount = /*[[${inactiveCount}]]*/ 0;
+    const leadCount = /*[[${leadCount}]]*/ 0;
+    const occasionalCount = /*[[${occasionalCount}]]*/ 0;
+    const permanentCount = /*[[${permanentCount}]]*/ 0;
 
     new Chart(document.getElementById("statusPieChart"), {
       type: 'pie',
       data: {
-        labels: ['Active', 'Inactive'],
+        labels: ['Active', 'Inactive', 'Lead', 'Occasional', 'Permanent'],
         datasets: [{
-          data: [activeCount, inactiveCount],
-          backgroundColor: ['#198754', '#ffc107']
+          data: [activeCount, inactiveCount, leadCount, occasionalCount, permanentCount],
+          backgroundColor: ['#198754', '#ffc107', '#fd7e14', '#0dcaf0', '#6c757d']
         }]
       },
       options: {

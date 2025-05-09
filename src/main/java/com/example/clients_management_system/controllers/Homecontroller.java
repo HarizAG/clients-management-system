@@ -17,9 +17,15 @@ public class HomeController {
         long clientCount = clientRepository.count();
         long activeCount = clientRepository.findByStatus("active", org.springframework.data.domain.Sort.by("id")).size();
         long inactiveCount = clientRepository.findByStatus("inactive", org.springframework.data.domain.Sort.by("id")).size();
+        long leadCount = clientRepository.findByStatus("lead", org.springframework.data.domain.Sort.by("id")).size();
+        long occasionalCount = clientRepository.findByStatus("occasional", org.springframework.data.domain.Sort.by("id")).size();
+        long permanentCount = clientRepository.findByStatus("permanent", org.springframework.data.domain.Sort.by("id")).size();
         model.addAttribute("clientCount", clientCount);
         model.addAttribute("activeCount", activeCount);
         model.addAttribute("inactiveCount", inactiveCount);
+        model.addAttribute("leadCount", leadCount);
+        model.addAttribute("occasionalCount", occasionalCount);
+        model.addAttribute("permanentCount", permanentCount);
         return "index";
     }
 }

@@ -1,13 +1,9 @@
 package com.example.clients_management_system.controllers;
 
-import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,8 +14,6 @@ import com.example.clients_management_system.models.Clients;
 import com.example.clients_management_system.models.ClientsDto;
 import com.example.clients_management_system.repositories.ClientRepository;
 
-import jakarta.validation.Valid;
-
 @Controller
 @RequestMapping("/clients")
 public class Clientscontroller {
@@ -28,24 +22,29 @@ public class Clientscontroller {
     private ClientRepository clientRepository;
 
     @GetMapping({"", "/"})
-    public String getClients(
-        Model model,
-        @RequestParam(required = false) String status
-    ) {
+    public String getClients(Model model, @RequestParam(required = false) String status) {
         var clients = status != null && !status.isEmpty()
             ? clientRepository.findByStatus(status, Sort.by(Sort.Direction.ASC, "id"))
             : clientRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
         
-        // Calculate counts
+        // Count clients for each status
         long totalCount = clientRepository.count();
         long activeCount = clientRepository.findByStatus("active", Sort.by(Sort.Direction.ASC, "id")).size();
         long inactiveCount = clientRepository.findByStatus("inactive", Sort.by(Sort.Direction.ASC, "id")).size();
-        
+        long leadCount = clientRepository.findByStatus("lead", Sort.by(Sort.Direction.ASC, "id")).size();
+        long occasionalCount = clientRepository.findByStatus("occasional", Sort.by(Sort.Direction.ASC, "id")).size();
+        long permanentCount = clientRepository.findByStatus("permanent", Sort.by(Sort.Direction.ASC, "id")).size();
+
+        // Add counts to model
         model.addAttribute("clients", clients);
         model.addAttribute("currentStatus", status);
         model.addAttribute("clientCount", totalCount);
         model.addAttribute("activeCount", activeCount);
         model.addAttribute("inactiveCount", inactiveCount);
+        model.addAttribute("leadCount", leadCount);
+        model.addAttribute("occasionalCount", occasionalCount);
+        model.addAttribute("permanentCount", permanentCount);
+
         return "clients/index";
     }
 
@@ -57,30 +56,14 @@ public class Clientscontroller {
     }
 
     @PostMapping("/create")
-    public String createClient(
-        @Valid @ModelAttribute ClientsDto clientDto,
-        BindingResult result
-    ) {
-        if (clientRepository.findByEmail(clientDto.getEmail()) != null) {
-            result.addError(
-                new FieldError("clientDto", "email", clientDto.getEmail(),
-                               false, null, null, "Email address is already used")
-            );
-        }
-
-        if (result.hasErrors()) {
-            return "clients/create";
-        }
-
+    public String createClient(@ModelAttribute ClientsDto clientDto) {
         Clients client = new Clients();
-        client.setFirstname(clientDto.getFirstname()); 
-        client.setLastname(clientDto.getLastname());   
+        client.setFirstname(clientDto.getFirstname());
+        client.setLastname(clientDto.getLastname());
         client.setEmail(clientDto.getEmail());
         client.setPhone(clientDto.getPhone());
         client.setAddress(clientDto.getAddress());
         client.setStatus(clientDto.getStatus());
-        client.setCreatedAt(new Date().toString());
-
         clientRepository.save(client);
 
         return "redirect:/clients";
@@ -108,21 +91,12 @@ public class Clientscontroller {
     }
 
     @PostMapping("/update")
-    public String updateClient(
-        @RequestParam Integer id, // Get the client ID from the hidden input
-        @Valid @ModelAttribute ClientsDto clientDto,
-        BindingResult result
-    ) {
+    public String updateClient(@RequestParam Integer id, @ModelAttribute ClientsDto clientDto) {
         Clients client = clientRepository.findById(id).orElse(null);
         if (client == null) {
             return "redirect:/clients";
         }
 
-        if (result.hasErrors()) {
-            return "clients/edit";
-        }
-
-        // Update the client details
         client.setFirstname(clientDto.getFirstname());
         client.setLastname(clientDto.getLastname());
         client.setEmail(clientDto.getEmail());
