@@ -4,31 +4,81 @@
     <meta charset="UTF-8">
     <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .register-container {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+        }
+        .form-control:focus {
+            border-color: #86b7fe;
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.1);
+        }
+        .btn-register {
+            background-color: #0d6efd;
+            border: none;
+            padding: 0.6rem;
+            transition: all 0.3s;
+        }
+        .btn-register:hover {
+            background-color: #0b5ed7;
+            transform: translateY(-1px);
+        }
+        .form-label {
+            font-weight: 500;
+        }
+        .error-message {
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+        .password-hint {
+            font-size: 0.8rem;
+            color: #6c757d;
+            margin-top: 0.25rem;
+        }
+    </style>
 </head>
-<body>
-<div class="container mt-5" style="max-width: 500px;">
-    <h2 class="mb-4 text-center">Register</h2>
-    <form th:action="@{/register}" th:object="${userDto}" method="post">
-        <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input type="email" th:field="*{email}" class="form-control" id="email" required>
-            <div class="text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+<body class="bg-light">
+<div class="container d-flex justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="register-container w-100" style="max-width: 450px;">
+        <div class="text-center mb-4">
+            <h2 class="fw-bold">Create Account</h2>
+            <p class="text-muted">Join us today by filling out the form below</p>
         </div>
-        <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input type="password" th:field="*{password}" class="form-control" id="password" required>
-            <div class="text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
-        </div>
-        <div class="mb-3">
-            <label for="confirmPassword" class="form-label">Confirm Password</label>
-            <input type="password" th:field="*{confirmPassword}" class="form-control" id="confirmPassword" required>
-            <div class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Register</button>
-        <div class="mt-3 text-center">
-            <span>Already have an account? <a href="/login">Login</a></span>
-        </div>
-    </form>
+        
+        <form th:action="@{/register}" th:object="${userDto}" method="post">
+            <div class="mb-3">
+                <label for="email" class="form-label">Email address</label>
+                <input type="email" th:field="*{email}" class="form-control form-control-lg" 
+                       id="email" placeholder="your@email.com" required>
+                <div class="text-danger error-message" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+            </div>
+            
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" th:field="*{password}" class="form-control form-control-lg" 
+                       id="password" placeholder="Create password" required>
+                
+                <div class="text-danger error-message" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+            </div>
+            
+            <div class="mb-4">
+                <label for="confirmPassword" class="form-label">Confirm Password</label>
+                <input type="password" th:field="*{confirmPassword}" class="form-control form-control-lg" 
+                       id="confirmPassword" placeholder="Confirm your password" required>
+                <div class="text-danger error-message" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}"></div>
+            </div>
+            
+            <button type="submit" class="btn btn-primary btn-register w-100 mb-3 fw-bold">Register</button>
+            
+            <div class="text-center mt-4">
+                <p class="text-muted">Already have an account? <a href="/login" class="text-decoration-none fw-bold">Login</a></p>
+            </div>
+        </form>
+    </div>
 </div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-</html> 
+</html>
